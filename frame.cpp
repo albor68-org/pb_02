@@ -1,3 +1,7 @@
+/// @file
+/// Приветствие в рамке
+
+
 #include <iostream>
 #include <string>
 
