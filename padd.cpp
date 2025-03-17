@@ -8,12 +8,12 @@
 // Перечисление используемых объектов стандартной библиотеки
 // для сокращения их имен в тексте программы (без приставки std::)
 using std::cin;         using std::endl;
-using std::count;        using std::string;
+using std::cout;        using std::string;
 
 
 int main () {
 
-	cout << "Пожалуйста, введите свое имя: ";
+	cout << "Пожалуйста, введите свое имя: "<<endl;
 	string name;
 	cin >> name;
 
@@ -28,10 +28,10 @@ int main () {
 	const string::size_type cols = ((greeting.size() - 3) / 2 + 3) + pad * 2 + 2;
 
 	// Вывод пустой строки для оформления выводимой "картинки"
-	cout << endl
+	cout << endl;
 
 	// Внешний цикл - по строкам "картинки"
-	for (int r = 0; r != rows; ++r) {
+	for (int r = 0; r != rows; r++) {
 
 		string::size_type c = 0;
 
@@ -39,7 +39,7 @@ int main () {
 		while (c != cols) {
 
 			// Если пора выводить приветствие выводим его за одно действие
-			if (r == pad + 1 && c == pad + 1) {
+			if (r == pad+1 && c == pad+1) {
 				cout << greeting;
 				c += ((greeting.size() - 3) / 2 + 3);
 			} else {
@@ -47,7 +47,7 @@ int main () {
 				// Если позиция совпадает с рамкой, выводим символ рамки, иначе - пробел
 				if (r == 0 || r == rows - 1 ||
 				    c == 0 || c == cols - 1)
-					cout << '*";
+					cout << "*";
 				else
 					cout << " ";
 				++c;
