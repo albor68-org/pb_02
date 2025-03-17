@@ -29,7 +29,7 @@
 
 Сборка отдельной цели выполняется уточненной командой:
 
-`cake --mbuild build --target <targetname>`
+`cmake --build build --target <targetname>`
 
 в которой <targetname> заменяется названием цели (greet, frame и padd).
 
