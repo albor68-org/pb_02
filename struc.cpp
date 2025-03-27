@@ -82,6 +82,10 @@ istream& read_hw (istream& in, vector<double>& hw) {
 
 		in.clear();
 	}
+
+	char b;
+	in >> b;
+
 	return in;
 }
 
@@ -100,7 +104,7 @@ istream& read (istream& is, Student_info& s) {
 //==============================================================================
 // Определяем смысл сравнения двух записей о студентах (по алфавитному порядку имен)
 bool compare (const Student_info& x, const Student_info& y) {
-	return x.name < y.name;
+	return x.name > y.name;
 }
 
 
@@ -114,7 +118,7 @@ int main () {
 	// Считываем данные об аттестации студентов, сохраняя их в векторе (по записи на каждого студента)
     // При считывании вычисляем длину имени и ищем максимальную
 	while (read(cin, record)) {
-		maxlen = max(maxlen, record.name.size());
+		maxlen = max(maxlen, record.name.size() / 2);
 		students.push_back(record);
 	}
 
@@ -125,18 +129,15 @@ int main () {
 	     i != students.size(); ++i) {
 
 		// Выводим имя студента и пробелы для выравнивания оценок
-		cout << students[i].name
-		     << string(maxlen + 1 - students[i].name.size(), ' ');
+		cout << students[i].name << string(maxlen + 5 - students[i].name.size() / 2, '.');
 
 		// Вычисляем (если получится) и выводим итоговую оценку
 		try {
 			double final_grade = grade(students[i]);
 			streamsize prec = cout.precision();
-			cout << setprecision(3) << final_grade
-			     << setprecision(prec);
-		}
-		// Если оценку вычислить невозможно, выводим сообщение об ошибке (но программу не завершаем, обрабатываем записи других студентов)
-		catch (domain_error e) {
+			cout << setprecision(3) << final_grade << setprecision(prec);
+		} catch (domain_error e) {
+			// Если оценку вычислить невозможно, выводим сообщение об ошибке (но программу не завершаем, обрабатываем записи других студентов)
 			cout << e.what();
 		}
 
