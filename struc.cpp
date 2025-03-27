@@ -82,6 +82,8 @@ istream& read_hw (istream& in, vector<double>& hw) {
 
 		in.clear();
 	}
+	char b;
+	in >> b;
 	return in;
 }
 
