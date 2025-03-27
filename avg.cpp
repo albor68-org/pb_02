@@ -39,7 +39,7 @@ int main () {
 		++count;
 		sum += x;
 	}
-	cout << "\n" << sum << " " << midterm << " " << final;
+	
 	// Выводим сообщение об итоговой оценке и саму оценку, окончательный расчет выполняем непосредственно при выводе
 	streamsize prec = cout.precision();
 	cout << name << ", ваша итоговая оценка: " << setprecision(3)
