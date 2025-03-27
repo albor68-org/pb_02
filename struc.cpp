@@ -69,7 +69,7 @@ double grade (const Student_info& s) {
 	return grade(s.midterm, s.final, s.homework);
 }
 
-
+	
 //==============================================================================
 // Функция, считывающая оценки студента за СР из потока ввода
 istream& read_hw (istream& in, vector<double>& hw) {
@@ -82,6 +82,8 @@ istream& read_hw (istream& in, vector<double>& hw) {
 
 		in.clear();
 	}
+	char b;
+	in >> b;
 	return in;
 }
 
@@ -114,7 +116,7 @@ int main () {
 	// Считываем данные об аттестации студентов, сохраняя их в векторе (по записи на каждого студента)
     // При считывании вычисляем длину имени и ищем максимальную
 	while (read(cin, record)) {
-		maxlen = max(maxlen, record.name.size());
+		maxlen = max(maxlen, record.name.size()/2);
 		students.push_back(record);
 	}
 
@@ -126,7 +128,7 @@ int main () {
 
 		// Выводим имя студента и пробелы для выравнивания оценок
 		cout << students[i].name
-		     << string(maxlen + 1 - students[i].name.size(), ' ');
+		     << string(maxlen + 4 - students[i].name.size()/2, ' ');
 
 		// Вычисляем (если получится) и выводим итоговую оценку
 		try {
