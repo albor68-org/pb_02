@@ -1,9 +1,26 @@
 cmake_minimum_required(VERSION 3.22)
 
-project(ch05 LANGUAGES CXX)
+project(ch05 LANGUAGES CXX C)
 
-add_executable(mod
-    mod.cpp
-)
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+    message(STATUS "Maximum optimization for speed")
+    add_compile_options(-Ofast)
+elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "RelWithDebInfo")
+    message(STATUS "Maximum optimization for speed, debug info included")
+    add_compile_options(-Ofast -g)
+elseif ("${CMAKE_BUILD_TYPE}" STREQUAL "MinSizeRel")
+    message(STATUS "Maximum optimization for size")
+    add_compile_options(-Os)
+else ()
+    message(STATUS "Minimal optimization, debug info included")
+    add_compile_options(-Og -g)
+endif ()
+
+include_directories(Inc/ Src/)
+
+file(GLOB_RECURSE SOURCES "Src/*.*" "Inc/*.*")
+
+add_executable(mod ${SOURCES} main.cpp)
+#add_executable(app mod.cpp)
 
 add_subdirectory(tests)
