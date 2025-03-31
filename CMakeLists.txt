@@ -4,6 +4,9 @@ project(ch05 LANGUAGES CXX)
 
 add_executable(mod
     mod.cpp
+    median.cpp
+    grade.cpp
+    student.info.cpp
 )
 
 add_subdirectory(tests)
