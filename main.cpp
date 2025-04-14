@@ -20,24 +20,31 @@ int main () {
 		students.push_back(record);
 	}
 
-	sort(students.begin(), students.end(), compare);
+    std::vector<Student_info> fails = extract_fails(students);
 
-	for (std::size_t i = 0; i != students.size(); ++i) {
+    std::sort(students.begin(), students.end(), compare);
 
-		std::cout << students[i].name
-		     << std::string(maxlen + 2 - string_lenght(students[i].name), ' ');
+    for (const auto& s : students) {
+        try {
+            double final = grade(s);
+            print_student_grade(s.name, maxlen, final);
+        } catch (std::domain_error& e) {
+            print_grade_error(s.name, maxlen, e.what());
+        }
+    }
 
-		try {
-			double final_grade = grade(students[i]);
-			std::streamsize prec = std::cout.precision();
-			std::cout << std::setprecision(3) << final_grade << std::setprecision(prec);
-		}
-		catch (std::domain_error e) {
-			std::cout << e.what();
-		}
+    std::cout << std::endl << "Неаттестованы:" << std::endl << std::endl;
 
-		std::cout << std::endl;
-	}
+    std::sort(fails.begin(), fails.end(), compare);
 
-	return 0;
+    for (const auto& s : fails) {
+        try {
+            double final = grade(s);
+            print_student_grade(s.name, maxlen, final);
+        } catch (std::domain_error& e) {
+            print_grade_error(s.name, maxlen, e.what());
+        }
+    }
+
+    return 0;
 }
