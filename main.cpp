@@ -24,20 +24,21 @@ int main () {
 
 	for (std::size_t i = 0; i != students.size(); ++i) {
 
-		std::cout << students[i].name
-		     << std::string(maxlen + 2 - string_lenght(students[i].name), ' ');
-
 		try {
 			double final_grade = grade(students[i]);
-			std::streamsize prec = std::cout.precision();
-			std::cout << std::setprecision(3) << final_grade << std::setprecision(prec);
-		}
-		catch (std::domain_error e) {
-			std::cout << e.what();
+
+		printStudentMidGrade(students[i], maxlen, final_grade);
+		} catch (std::domain_error e) {
+			printExeption(students[i], maxlen, e.what());
 		}
 
-		std::cout << std::endl;
+		
 	}
+
+	std::vector<Student_info> failedStudents = extract_fails(students);
+	printFailedStudents(failedStudents);
+
+
 
 	return 0;
 }
