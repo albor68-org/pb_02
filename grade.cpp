@@ -22,3 +22,13 @@ double grade (double midterm, double final, const std::vector<double>& hw) {
 double grade (const Student_info& s) {
 	return grade(s.midterm, s.final, s.homework);
 }
+//==============================================================================
+bool f_grade (const Student_info& s){
+	try{
+		double g=grade(s);
+		return g<6.0;
+	}
+	catch (std::domain_error e){
+		return true;
+	}
+}
