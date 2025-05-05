@@ -24,10 +24,6 @@ double grade (const Student_info& s) {
 }
 
 //==============================================================================
-bool f_grade(const Student_info& s) {
-    try {
-        return grade(s) < 6.0;
-    } catch (std::domain_error&) {
-        return true;
-    }
+bool f_grade (double grade) {
+	return grade < 6;
 }

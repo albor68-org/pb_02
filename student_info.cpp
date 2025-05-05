@@ -1,11 +1,10 @@
 #include "student_info.h"
 #include "locale_string.h"
 #include "grade.h"
-#include <iostream>
+
 #include <iomanip>
 #include <string>
 #include <vector>
-
 
 //==============================================================================
 std::istream& read_hw (std::istream& in, std::vector<double>& hw) {
@@ -13,54 +12,62 @@ std::istream& read_hw (std::istream& in, std::vector<double>& hw) {
 		hw.clear();
 		
 		for (double x; in >> x;) hw.push_back(x);
-
 		in.clear();
 	}
 	return in;
 }
-
-
 //==============================================================================
 std::istream& read (std::istream& is, Student_info& s) {
 	is >> s.name >> s.midterm >> s.final;
 	read_hw(is, s.homework);
-
 	return is;
 }
 
-
-//==============================================================================
 bool compare (const Student_info& x, const Student_info& y) {
 	return x.name < y.name;
 }
 
-void print_student_grade(const std::string& name, std::size_t maxlen, double final_grade) {
-    std::size_t name_len = string_lenght(name);
-    std::size_t padding = (maxlen + 2 > name_len) ? maxlen + 2 - name_len : 0;std::cout << name << std::string(padding, ' ');
+void printExeption(const Student_info &student, std::size_t columnSize, const char* exception) {
+	std::cout << student.name << std::string(columnSize + 2 - string_lenght(student.name), ' ') << exception;
 
-    std::streamsize prec = std::cout.precision();
-    std::cout << std::setprecision(3) << final_grade << std::setprecision(prec);
-    std::cout << std::endl;
+	std::cout << std::endl;
 }
-void print_grade_error(const std::string& name, std::size_t maxlen, const char* message) {
-    std::size_t name_len = string_lenght(name);
-    std::size_t padding = (maxlen + 2 > name_len) ? maxlen + 2 - name_len : 0;
 
-    std::cout << name << std::string(padding, ' ') << message << std::endl;
+void printStudentMidGrade(const Student_info &student, std::size_t columnSize, double grade) {
+	std::cout << student.name << std::string(columnSize + 2 - string_lenght(student.name), ' ');
+
+	std::streamsize prec = std::cout.precision();
+	std::cout << std::setprecision(3) << grade << std::setprecision(prec);
+
+	std::cout << std::endl;
+}
+
+void printStudentName(const Student_info &student) {
+	std::cout << student.name << std::endl;
+}
+
+void printFailedStudents(std::vector<Student_info>& failedStudents) {
+	std::cout << std::endl << "Неаттестованы:" << std::endl;
+
+	for (Student_info student : failedStudents) {
+		printStudentName(student);
+	}
 }
 
 std::vector<Student_info> extract_fails(std::vector<Student_info>& students) {
-    std::vector<Student_info> fails;
+	std::vector<Student_info> failedStudents;
 
-    auto it = students.begin();
-    while (it != students.end()) {
-        if (f_grade(*it)) {
-            fails.push_back(*it);
-            it = students.erase(it);
-        } else {
-            ++it;
-        }
-    }
+	for (std::size_t i = 0; i != students.size(); ++i) {
+		try {
+			if (f_grade(grade(students[i]))) {
+				failedStudents.push_back(students[i]);
+				students.erase(students.begin() + i);
+			}
+		} catch (std::domain_error e) {
+			failedStudents.push_back(students[i]);
+			students.erase(students.begin() + i);
+		}
+	}
 
-    return fails;
+	return failedStudents;
 }
