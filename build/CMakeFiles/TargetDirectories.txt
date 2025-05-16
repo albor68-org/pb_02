@@ -1,0 +1,5 @@
+/home/pasichenko_vs/Projects/pb_02/build/CMakeFiles/greet.dir
+/home/pasichenko_vs/Projects/pb_02/build/CMakeFiles/frame.dir
+/home/pasichenko_vs/Projects/pb_02/build/CMakeFiles/padd.dir
+/home/pasichenko_vs/Projects/pb_02/build/CMakeFiles/edit_cache.dir
+/home/pasichenko_vs/Projects/pb_02/build/CMakeFiles/rebuild_cache.dir

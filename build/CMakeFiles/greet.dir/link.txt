@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/greet.dir/greet.cpp.o -o greet 
